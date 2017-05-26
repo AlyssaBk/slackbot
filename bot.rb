@@ -21,7 +21,7 @@ log = ChatAdapter.log
 bot.on_message do |message, info|
   
   if message.include? "@koenv" # just change it for your own username here
-    "@koenv says : okthanksbye"# and here too
+    bot.direct_message(info[:user], "@koenv says : okthanksbye")
   end
 
   # ignore all messages not directed to this bot
