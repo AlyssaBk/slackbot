@@ -9,9 +9,9 @@ require './heroku'
 # Feel free to change the name of the bot here - this controls what name the bot
 # uses when responding.
 if ARGV.first == 'heroku'
-  bot = HerokuSlackAdapter.new(nick: 'echobot')
+  bot = HerokuSlackAdapter.new(nick: 'mentionbot')
 else
-  bot = ChatAdapter::Shell.new(nick: 'echobot')
+  bot = ChatAdapter::Shell.new(nick: 'mentionbot')
 end
 
 # Feel free to ignore this - makes logging easier
@@ -19,25 +19,30 @@ log = ChatAdapter.log
 
 # Do this thing in this block each time the bot hears a message:
 bot.on_message do |message, info|
-  # ignore all messages not directed to this bot
-  unless message.start_with? 'echobot: '
-    next # don't process the next lines in this block
+  
+  if message.include? "@koenv" # just change it for your own username here
+    "@koenv says : okthanksbye"# and here too
   end
+
+  # ignore all messages not directed to this bot
+  #unless message.start_with? 'mentionbot: '
+  #  next # don't process the next lines in this block
+  #end
 
   # Conditionally send a direct message to the person saying whisper
-  if message == 'echobot: whisper'
+  #if message == 'mentionbot: whisper'
     # log some info - useful when something doesn't work as expected
-    log.debug("Someone whispered! #{info}")
+  #  log.debug("Someone whispered! #{info}")
     # and send the actual message
-    bot.direct_message(info[:user], "whisper-whisper")
-  end
+  #  bot.direct_message(info[:user], "whisper-whisper")
+  #end
 
   # split the message in 2 to get what was actually said.
-  botname, command = message.split(': ', 2)
+  #botname, command = message.split(': ', 2)
 
   # answer the query!
   # this bot simply echoes the message back
-  "@#{info[:user]}: #{command}"
+  #"@#{info[:user]}: #{command}"
 end
 
 # actually start the bot
